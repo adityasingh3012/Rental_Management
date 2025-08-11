@@ -13,6 +13,7 @@ import {
 import DashboardPage from './pages/DashboardPage';
 import Phase2Demo from './pages/Phase2Demo';
 import ThemeShowcase from './pages/ThemeShowcase';
+import { Phase4Demo } from './pages/Phase4Demo';
 import './App.css';
 
 function App() {
@@ -52,6 +53,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Phase2Demo />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route 
+                path="/phase4" 
+                element={
+                  <ProtectedRoute>
+                    <Phase4Demo />
                   </ProtectedRoute>
                 } 
               />

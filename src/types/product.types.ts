@@ -54,6 +54,7 @@ export interface ProductSpecification {
 export interface RentalTerms {
   minRentalPeriod: number; // in hours
   maxRentalPeriod: number; // in hours
+  unit?: string; // 'hour' | 'day' | 'week' | 'month'
   advanceBookingRequired: number; // in hours
   cancellationPolicy: string;
   lateReturnPolicy: string;
@@ -156,4 +157,74 @@ export interface ProductSearchParams {
   sortOrder?: 'asc' | 'desc';
   page?: number;
   limit?: number;
+}
+
+// Enhanced types for Phase 4 implementation
+export interface ProductSearchResponse {
+  products: Product[];
+  totalCount: number;
+  currentPage: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  filters: {
+    categories: ProductCategory[];
+    priceRange: { min: number; max: number };
+    brands: string[];
+    features: string[];
+  };
+}
+
+export interface ProductDisplaySettings {
+  view: 'grid' | 'list';
+  itemsPerPage: 12 | 24 | 48;
+  showFilters: boolean;
+}
+
+export interface ProductWishlistItem {
+  id: ID;
+  productId: ID;
+  userId: ID;
+  product?: Product;
+  addedAt: string;
+}
+
+export interface ProductRating {
+  id: ID;
+  productId: ID;
+  userId: ID;
+  userName: string;
+  rating: number;
+  review?: string;
+  createdAt: string;
+  isVerifiedRental: boolean;
+}
+
+export interface ProductAnalytics {
+  productId: ID;
+  views: number;
+  rentals: number;
+  revenue: number;
+  avgRating: number;
+  reviewCount: number;
+  conversionRate: number;
+  popularityScore: number;
+}
+
+export interface ProductFormData {
+  name: string;
+  description: string;
+  shortDescription: string;
+  categoryId: string;
+  brand: string;
+  model: string;
+  images: File[];
+  specifications: Omit<ProductSpecification, 'id'>[];
+  rentalTerms: RentalTerms;
+  pricing: ProductPricing;
+  availability: ProductAvailability;
+  status: 'active' | 'inactive' | 'maintenance';
+  tags: string[];
+  features: string[];
+  accessories?: Omit<Accessory, 'id'>[];
 }

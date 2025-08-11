@@ -1,677 +1,1315 @@
-# Rental Management Web Application - Development TODO List
+# Rental Management Frontend - Detailed TODO List
 
 ## Project Overview
 **Created:** 2025-08-11  
 **Developer:** gitPushAditya  
-**Tech Stack:** React (TypeScript) + Tailwind CSS  
-**Estimated Timeline:** 8-12 weeks  
+**Focus:** Frontend Development (React + TypeScript + Tailwind CSS)  
+**Estimated Timeline:** 6-8 weeks  
+**Backend Integration:** API endpoints ready for backend implementation
 
 ---
 
-## Phase 1: Project Setup & Foundation (Week 1) ✅ COMPLETED
+## Phase 1: Project Foundation & Setup (Week 1)
 
-### 1.1 Environment Setup ✅
-- [x] Initialize React project with TypeScript
-  - [x] Create React app with TypeScript template
-  - [x] Configure Vite or CRA based on preference
-  - [x] Set up package.json with required dependencies
-- [x] Install and configure Tailwind CSS
-  - [x] Install tailwindcss, postcss, autoprefixer
-  - [x] Create tailwind.config.js
-  - [x] Configure CSS imports
-  - [x] Test basic styling
-- [x] Set up development tools
-  - [x] Configure ESLint with TypeScript rules
-  - [x] Configure Prettier for code formatting
-  - [x] Set up pre-commit hooks with Husky (Optional - can be added later)
-  - [x] Configure VS Code settings
+### 1.1 Project Initialization
+- [x] Create React app with TypeScript template
+  ```bash
+  npx create-react-app rental-management --template typescript
+  # OR
+  npm create vite@latest rental-management -- --template react-ts
+  ```
+- [x] Clean up default files and structure
+- [x] Initialize Git repository
+- [x] Create .gitignore with proper exclusions
 
-### 1.2 Project Structure ✅
+### 1.2 Dependencies Installation
+- [x] Install core dependencies
+  ```bash
+  npm install react-router-dom axios react-hook-form
+  npm install @hookform/resolvers yup date-fns clsx
+  npm install lucide-react react-hot-toast
+  ```
+- [x] Install Tailwind CSS
+  ```bash
+  npm install -D tailwindcss postcss autoprefixer
+  npx tailwindcss init -p
+  ```
+- [x] Install development dependencies
+  ```bash
+  npm install -D @types/node eslint prettier
+  npm install -D @typescript-eslint/eslint-plugin @typescript-eslint/parser
+  ```
+
+### 1.3 Project Structure Setup
 - [x] Create folder structure
   ```
   src/
   ├── components/
-  │   ├── common/          ✅ Button, Input, Card, Loading, Modal
-  │   ├── layout/          ✅ Structure ready for Phase 2
-  │   └── features/        ✅ Structure ready for later phases
+  │   ├── common/          # Reusable UI components
+  │   ├── layout/          # Layout components
+  │   └── features/        # Feature-specific components
   ├── pages/
-  │   ├── auth/            ✅ Structure ready for Phase 3
-  │   ├── customer/        ✅ Structure ready for later phases
-  │   ├── staff/           ✅ Structure ready for later phases
-  │   └── admin/           ✅ Structure ready for later phases
-  ├── hooks/               ✅ Structure ready
-  ├── services/            ✅ Structure ready
-  ├── types/               ✅ Complete type definitions
-  ├── utils/               ✅ Helper functions and utilities
-  ├── store/               ✅ Structure ready
-  └── styles/              ✅ Global styles configured
+  │   ├── auth/           # Authentication pages
+  │   ├── customer/       # Customer portal pages
+  │   ├── staff/          # Staff portal pages
+  │   ├── admin/          # Admin portal pages
+  │   └── public/         # Public pages (landing, about)
+  ├── hooks/              # Custom React hooks
+  ├── services/           # API services with all endpoints
+  ├── types/              # TypeScript type definitions
+  ├── utils/              # Utility functions
+  ├── context/            # React context providers
+  ├── constants/          # App constants
+  └── styles/             # Global styles
   ```
-- [x] Set up absolute imports with path mapping
-- [x] Create index.ts files for clean exports
-- [x] Configure environment variables structure
 
-### 1.3 Core Dependencies ✅
-- [x] Install routing: React Router v6
-- [x] Install HTTP client: Axios
-- [x] Install form handling: React Hook Form
-- [x] Install date utilities: date-fns
-- [x] Install state management: React Context or Redux Toolkit
-- [x] Install UI utilities: clsx, tailwind-merge
-- [x] Install icons: Lucide React or Heroicons
-- [x] Install dev dependencies: @types packages
-
-### 1.4 TypeScript Configuration ✅
-- [x] Define core type definitions
-- [x] Create API response types
-- [x] Define user role types
-- [x] Create product and rental types
-- [x] Set up utility types
-- [x] Configure strict TypeScript settings
-
-### 1.5 Essential Components Implementation ✅
-- [x] Button Component with variants, sizes, loading states
-- [x] Input Components (Text, Password) with validation styling
-- [x] Card Component with Header, Body, Footer sections
-- [x] Loading Components (Spinner, Dots, Skeleton, Overlay)
-- [x] Modal Component with compound pattern
-- [x] Utility functions for validation, formatting, API calls
-- [x] Test setup with working demo page
+### 1.4 Configuration Files
+- [x] Configure Tailwind CSS
+  ```javascript
+  // tailwind.config.js with custom theme
+  ```
+- [x] Set up TypeScript paths in tsconfig.json
+- [x] Create .env.example with API endpoints
+- [x] Configure ESLint and Prettier
+- [x] Set up absolute imports
 
 ---
 
-## Phase 2: Core Components & Layout (Week 2) ✅ COMPLETED
+## Phase 2: Core Components & Design System (Week 1-2)
 
-### 2.1 Common Components ✅
-- [x] **Button Component**
-  - [x] Primary, secondary, danger variants
-  - [x] Size variations (sm, md, lg)
+### 2.1 Design System Setup
+- [x] **Color Palette Definition**
+  ```javascript
+  // Define in tailwind.config.js
+  const colors = {
+    primary: { 50: '#...', 500: '#...', 900: '#...' },
+    secondary: { 50: '#...', 500: '#...', 900: '#...' },
+    success: { 50: '#...', 500: '#...', 900: '#...' },
+    warning: { 50: '#...', 500: '#...', 900: '#...' },
+    error: { 50: '#...', 500: '#...', 900: '#...' },
+  }
+  ```
+- [x] **Typography System**
+  - [x] Define font families
+  - [x] Set up font sizes and weights
+  - [x] Create typography utility classes
+
+### 2.2 Common UI Components
+- [x] **Button Component** (`components/common/Button.tsx`)
+  ```typescript
+  interface ButtonProps {
+    variant: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+    size: 'sm' | 'md' | 'lg' | 'xl';
+    loading?: boolean;
+    disabled?: boolean;
+    children: React.ReactNode;
+    onClick?: () => void;
+  }
+  ```
+  - [x] Primary, secondary, outline variants
+  - [x] Size variations with proper padding
   - [x] Loading state with spinner
   - [x] Disabled state styling
-  - [x] TypeScript props interface
+  - [x] Icon support (left/right)
 
 - [x] **Input Components**
-  - [x] TextInput with validation styling
-  - [x] PasswordInput with show/hide toggle
-  - [x] SelectInput with custom dropdown
-  - [x] DatePicker with calendar
-  - [x] NumberInput with increment controls
-  - [x] TextArea with auto-resize
+  - [x] **TextInput** (`components/common/TextInput.tsx`)
+    - [x] Label and placeholder support
+    - [x] Error state styling
+    - [x] Helper text
+    - [x] Required field indicator
+    - [x] Icon support
+  
+  - [ ] **PasswordInput** (`components/common/PasswordInput.tsx`)
+    - [ ] Show/hide password toggle
+    - [ ] Strength indicator
+    - [ ] Error state styling
+  
+  - [x] **SelectInput** (`components/common/SelectInput.tsx`)
+    - [x] Custom dropdown styling
+    - [ ] Search functionality
+    - [ ] Multi-select option
+    - [ ] Loading state for async options
+  
+  - [x] **DatePicker** (`components/common/DatePicker.tsx`)
+    - [x] Calendar popup
+    - [x] Date range selection
+    - [x] Disabled dates
+    - [x] Custom date formats
+  
+  - [x] **NumberInput** (`components/common/NumberInput.tsx`)
+    - [x] Increment/decrement buttons
+    - [x] Min/max validation
+    - [x] Currency formatting option
 
 - [x] **Feedback Components**
-  - [x] Alert component (success, error, warning, info)
-  - [x] Toast notification system
-  - [x] Loading spinner variations
-  - [x] Empty state component
-  - [x] Error boundary component
+  - [x] **Alert** (`components/common/Alert.tsx`)
+    - [x] Success, error, warning, info variants
+    - [x] Closable option
+    - [x] Icon support
+  
+  - [x] **Toast Notification System** (`components/common/Toast.tsx`)
+    - [x] Success, error, warning notifications
+    - [x] Auto-dismiss timer
+    - [ ] Action buttons
+    - [ ] Position configuration
+  
+  - [x] **LoadingSpinner** (`components/common/LoadingSpinner.tsx`)
+    - [x] Different sizes
+    - [x] Full page overlay option
+    - [x] Custom colors
+  
+  - [x] **EmptyState** (`components/common/EmptyState.tsx`)
+    - [x] Illustration support
+    - [x] Custom message
+    - [x] Call-to-action button
 
-- [x] **Navigation Components**
-  - [x] Breadcrumb component
-  - [x] Pagination component
-  - [x] Tab navigation
-  - [x] Step indicator for multi-step forms
-
-### 2.2 Layout Components ✅
-- [x] **Header Component**
-  - [x] Logo and branding
-  - [x] Navigation menu
-  - [x] User account dropdown
-  - [x] Search bar integration
+### 2.3 Layout Components
+- [x] **Header** (`components/layout/Header.tsx`)
+  - [x] Logo placement
+  - [x] Navigation menu (responsive)
+  - [ ] User avatar dropdown
+  - [ ] Search bar
+  - [ ] Notification bell
   - [x] Mobile hamburger menu
 
-- [x] **Sidebar Component**
-  - [x] Role-based navigation items
-  - [x] Collapsible/expandable design
+- [x] **Sidebar** (`components/layout/Sidebar.tsx`)
+  - [x] Collapsible design
+  - [ ] Role-based menu items
   - [x] Active state indication
   - [x] Mobile responsive behavior
+  - [ ] Bottom user info section
 
-- [x] **Footer Component**
+- [x] **Footer** (`components/layout/Footer.tsx`)
   - [x] Company information
+  - [x] Quick links
+  - [x] Contact details
   - [x] Legal links
-  - [x] Contact information
-  - [x] Social media links
 
-- [x] **Layout Wrapper**
-  - [x] Main layout container
-  - [x] Role-based layout switching
-  - [x] Responsive grid system
-  - [x] Loading states for layout
-
-### 2.3 Responsive Design Setup ✅
-- [x] Define breakpoint constants
-- [x] Create responsive utility classes
-- [x] Test mobile navigation
-- [x] Implement touch-friendly interactions
-- [x] Optimize for tablet view
+- [x] **Layout Wrappers**
+  - [x] **PublicLayout** (`components/layout/PublicLayout.tsx`)
+  - [x] **AuthenticatedLayout** (`components/layout/AuthenticatedLayout.tsx`)
+  - [ ] **CustomerLayout** (`components/layout/CustomerLayout.tsx`)
+  - [ ] **StaffLayout** (`components/layout/StaffLayout.tsx`)
+  - [ ] **AdminLayout** (`components/layout/AdminLayout.tsx`)
 
 ---
 
-## Phase 3: Authentication System (Week 3) ✅ COMPLETED
+## Phase 3: Type Definitions & API Services (Week 2)
 
-### 3.1 Authentication Pages ✅
-- [x] **Login Page**
-  - [x] Email/password form with validation
-  - [x] Remember me checkbox
-  - [x] Forgot password link
-  - [x] Demo credentials display
-  - [x] Error handling and messaging
-  - [x] Modern, premium UI design
+### 3.1 TypeScript Definitions
+- [x] **User Types** (`types/user.ts`)
+  ```typescript
+  export interface User {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    role: 'customer' | 'staff' | 'admin';
+    avatar?: string;
+    phone?: string;
+    address?: Address;
+    createdAt: string;
+    updatedAt: string;
+  }
+  
+  export interface Address {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  }
+  ```
 
-- [x] **Register Page**
-  - [x] Multi-step registration form
-  - [x] Email verification flow
-  - [x] Terms and conditions acceptance
-  - [x] Role selection (Customer/Staff)
-  - [x] Form validation with real-time feedback
-  - [x] Step indicator component
+- [x] **Product Types** (`types/product.ts`)
+  ```typescript
+  export interface Product {
+    id: string;
+    name: string;
+    description: string;
+    category: string;
+    images: string[];
+    specifications: Record<string, any>;
+    pricing: ProductPricing;
+    availability: ProductAvailability;
+    status: 'active' | 'inactive' | 'maintenance';
+    createdAt: string;
+    updatedAt: string;
+  }
+  
+  export interface ProductPricing {
+    hourly?: number;
+    daily: number;
+    weekly?: number;
+    monthly?: number;
+    currency: string;
+  }
+  
+  export interface ProductAvailability {
+    totalQuantity: number;
+    availableQuantity: number;
+    reservedQuantity: number;
+    maintenanceQuantity: number;
+  }
+  ```
 
-- [x] **Password Reset**
-  - [x] Email input for password reset
-  - [x] Reset confirmation page
-  - [x] New password setup form
-  - [x] Success confirmation
-  - [x] Password strength indicator
+- [x] **Rental Types** (`types/rental.ts`)
+  ```typescript
+  export interface Quotation {
+    id: string;
+    customerId: string;
+    products: QuotationItem[];
+    startDate: string;
+    endDate: string;
+    totalAmount: number;
+    status: 'pending' | 'approved' | 'rejected' | 'expired';
+    notes?: string;
+    createdAt: string;
+    updatedAt: string;
+  }
+  
+  export interface QuotationItem {
+    productId: string;
+    quantity: number;
+    unitPrice: number;
+    totalPrice: number;
+    specialRequirements?: string;
+  }
+  
+  export interface Rental {
+    id: string;
+    quotationId: string;
+    customerId: string;
+    products: RentalItem[];
+    startDate: string;
+    endDate: string;
+    actualReturnDate?: string;
+    status: 'confirmed' | 'picked_up' | 'active' | 'returned' | 'overdue';
+    pickupDetails?: PickupDetails;
+    returnDetails?: ReturnDetails;
+    totalAmount: number;
+    paidAmount: number;
+    createdAt: string;
+    updatedAt: string;
+  }
+  ```
 
-### 3.2 Authentication Logic ✅
-- [x] **Auth Context/Store**
-  - [x] User state management
-  - [x] Token storage (localStorage/sessionStorage)
-  - [x] Auto-logout on token expiry
-  - [x] Role-based permissions
-  - [x] Mock API endpoints for backend integration
+- [x] **Common Types** (`types/common.ts`)
+  ```typescript
+  export interface ApiResponse<T> {
+    success: boolean;
+    data: T;
+    message?: string;
+    errors?: string[];
+  }
+  
+  export interface PaginatedResponse<T> {
+    data: T[];
+    pagination: {
+      page: number;
+      limit: number;
+      total: number;
+      totalPages: number;
+    };
+  }
+  
+  export interface FilterOptions {
+    search?: string;
+    category?: string;
+    status?: string;
+    dateRange?: {
+      start: string;
+      end: string;
+    };
+    priceRange?: {
+      min: number;
+      max: number;
+    };
+  }
+  ```
 
-- [x] **Protected Routes**
-  - [x] Route guards for authenticated users
-  - [x] Role-based route protection
-  - [x] Redirect logic for unauthorized access
-  - [x] Loading states for auth checks
+### 3.2 API Services Setup
+- [x] **Base API Configuration** (`services/api.ts`)
+  ```typescript
+  import axios from 'axios';
+  
+  const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+  
+  export const api = axios.create({
+    baseURL: API_BASE,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  
+  // Request interceptor for auth token
+  api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  });
+  
+  // Response interceptor for error handling
+  api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response?.status === 401) {
+        // Handle logout
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+      }
+      return Promise.reject(error);
+    }
+  );
+  ```
 
-- [x] **API Integration**
-  - [x] Login API integration (mock)
-  - [x] Register API integration (mock)
-  - [x] Token refresh mechanism
-  - [x] User profile API calls (mock)
-  - [x] Ready endpoints for backend implementation
+### 3.3 API Service Modules
+- [x] **Authentication Service** (`services/authService.ts`)
+  ```typescript
+  export const authService = {
+    // POST /auth/login
+    login: (credentials: LoginCredentials) => 
+      api.post('/auth/login', credentials),
+    
+    // POST /auth/register  
+    register: (userData: RegisterData) => 
+      api.post('/auth/register', userData),
+    
+    // POST /auth/forgot-password
+    forgotPassword: (email: string) => 
+      api.post('/auth/forgot-password', { email }),
+    
+    // POST /auth/reset-password
+    resetPassword: (token: string, password: string) => 
+      api.post('/auth/reset-password', { token, password }),
+    
+    // GET /auth/me
+    getCurrentUser: () => 
+      api.get('/auth/me'),
+    
+    // PUT /auth/profile
+    updateProfile: (profileData: UpdateProfileData) => 
+      api.put('/auth/profile', profileData),
+    
+    // POST /auth/logout
+    logout: () => 
+      api.post('/auth/logout'),
+  };
+  ```
 
-### 3.3 Profile Management ✅
-- [x] **Profile Page**
-  - [x] User information display
-  - [x] Profile edit form
-  - [x] Password change functionality
-  - [x] Profile image upload
-  - [x] Account preferences
-  - [x] Modern tabbed interface
+- [x] **Product Service** (`services/productService.ts`)
+  ```typescript
+  export const productService = {
+    // GET /products?search=&category=&page=&limit=
+    getProducts: (filters?: FilterOptions, pagination?: PaginationParams) => 
+      api.get('/products', { params: { ...filters, ...pagination } }),
+    
+    // GET /products/:id
+    getProduct: (id: string) => 
+      api.get(`/products/${id}`),
+    
+    // GET /products/:id/availability?startDate=&endDate=
+    getProductAvailability: (id: string, startDate: string, endDate: string) => 
+      api.get(`/products/${id}/availability`, { params: { startDate, endDate } }),
+    
+    // POST /products (Admin only)
+    createProduct: (productData: CreateProductData) => 
+      api.post('/products', productData),
+    
+    // PUT /products/:id (Admin only)
+    updateProduct: (id: string, productData: UpdateProductData) => 
+      api.put(`/products/${id}`, productData),
+    
+    // DELETE /products/:id (Admin only)
+    deleteProduct: (id: string) => 
+      api.delete(`/products/${id}`),
+    
+    // GET /products/categories
+    getCategories: () => 
+      api.get('/products/categories'),
+  };
+  ```
+
+- [x] **Quotation Service** (`services/quotationService.ts`)
+  ```typescript
+  export const quotationService = {
+    // GET /quotations?status=&page=&limit=
+    getQuotations: (filters?: QuotationFilters, pagination?: PaginationParams) => 
+      api.get('/quotations', { params: { ...filters, ...pagination } }),
+    
+    // GET /quotations/:id
+    getQuotation: (id: string) => 
+      api.get(`/quotations/${id}`),
+    
+    // POST /quotations
+    createQuotation: (quotationData: CreateQuotationData) => 
+      api.post('/quotations', quotationData),
+    
+    // PUT /quotations/:id/status
+    updateQuotationStatus: (id: string, status: QuotationStatus, notes?: string) => 
+      api.put(`/quotations/${id}/status`, { status, notes }),
+    
+    // PUT /quotations/:id (Admin only)
+    updateQuotation: (id: string, quotationData: UpdateQuotationData) => 
+      api.put(`/quotations/${id}`, quotationData),
+    
+    // DELETE /quotations/:id
+    deleteQuotation: (id: string) => 
+      api.delete(`/quotations/${id}`),
+  };
+  ```
+
+- [x] **Rental Service** (`services/rentalService.ts`)
+  ```typescript
+  export const rentalService = {
+    // GET /rentals?status=&customerId=&page=&limit=
+    getRentals: (filters?: RentalFilters, pagination?: PaginationParams) => 
+      api.get('/rentals', { params: { ...filters, ...pagination } }),
+    
+    // GET /rentals/:id
+    getRental: (id: string) => 
+      api.get(`/rentals/${id}`),
+    
+    // POST /rentals (Convert quotation to rental)
+    createRental: (quotationId: string, rentalData: CreateRentalData) => 
+      api.post('/rentals', { quotationId, ...rentalData }),
+    
+    // PUT /rentals/:id/status
+    updateRentalStatus: (id: string, status: RentalStatus) => 
+      api.put(`/rentals/${id}/status`, { status }),
+    
+    // PUT /rentals/:id
+    updateRental: (id: string, rentalData: UpdateRentalData) => 
+      api.put(`/rentals/${id}`, rentalData),
+  };
+  ```
+
+- [x] **Pickup/Return Service** (`services/operationsService.ts`)
+  ```typescript
+  export const operationsService = {
+    // GET /pickups?staffId=&status=&date=
+    getPickups: (filters?: PickupFilters) => 
+      api.get('/pickups', { params: filters }),
+    
+    // GET /pickups/:id
+    getPickup: (id: string) => 
+      api.get(`/pickups/${id}`),
+    
+    // POST /pickups
+    schedulePickup: (pickupData: SchedulePickupData) => 
+      api.post('/pickups', pickupData),
+    
+    // PUT /pickups/:id/complete
+    completePickup: (id: string, completionData: PickupCompletionData) => 
+      api.put(`/pickups/${id}/complete`, completionData),
+    
+    // GET /returns?staffId=&status=&date=
+    getReturns: (filters?: ReturnFilters) => 
+      api.get('/returns', { params: filters }),
+    
+    // GET /returns/:id
+    getReturn: (id: string) => 
+      api.get(`/returns/${id}`),
+    
+    // POST /returns
+    scheduleReturn: (returnData: ScheduleReturnData) => 
+      api.post('/returns', returnData),
+    
+    // PUT /returns/:id/complete
+    completeReturn: (id: string, completionData: ReturnCompletionData) => 
+      api.put(`/returns/${id}/complete`, completionData),
+  };
+  ```
+
+- [x] **Payment Service** (`services/paymentService.ts`)
+  ```typescript
+  export const paymentService = {
+    // GET /payments?rentalId=&status=
+    getPayments: (filters?: PaymentFilters) => 
+      api.get('/payments', { params: filters }),
+    
+    // POST /payments/intent (Create payment intent)
+    createPaymentIntent: (paymentData: CreatePaymentData) => 
+      api.post('/payments/intent', paymentData),
+    
+    // POST /payments/confirm (Confirm payment)
+    confirmPayment: (paymentIntentId: string, paymentMethodId: string) => 
+      api.post('/payments/confirm', { paymentIntentId, paymentMethodId }),
+    
+    // GET /invoices?customerId=&status=
+    getInvoices: (filters?: InvoiceFilters) => 
+      api.get('/invoices', { params: filters }),
+    
+    // GET /invoices/:id
+    getInvoice: (id: string) => 
+      api.get(`/invoices/${id}`),
+    
+    // GET /invoices/:id/download
+    downloadInvoice: (id: string) => 
+      api.get(`/invoices/${id}/download`, { responseType: 'blob' }),
+  };
+  ```
+
+- [x] **User Management Service** (`services/userService.ts`)
+  ```typescript
+  export const userService = {
+    // GET /users?role=&status=&page=&limit= (Admin only)
+    getUsers: (filters?: UserFilters, pagination?: PaginationParams) => 
+      api.get('/users', { params: { ...filters, ...pagination } }),
+    
+    // GET /users/:id (Admin only)
+    getUser: (id: string) => 
+      api.get(`/users/${id}`),
+    
+    // POST /users (Admin only)
+    createUser: (userData: CreateUserData) => 
+      api.post('/users', userData),
+    
+    // PUT /users/:id (Admin only)
+    updateUser: (id: string, userData: UpdateUserData) => 
+      api.put(`/users/${id}`, userData),
+    
+    // DELETE /users/:id (Admin only)
+    deleteUser: (id: string) => 
+      api.delete(`/users/${id}`),
+    
+    // PUT /users/:id/status (Admin only)
+    updateUserStatus: (id: string, status: UserStatus) => 
+      api.put(`/users/${id}/status`, { status }),
+  };
+  ```
+
+- [x] **Notification Service** (`services/notificationService.ts`)
+  ```typescript
+  export const notificationService = {
+    // GET /notifications?read=&type=&page=&limit=
+    getNotifications: (filters?: NotificationFilters, pagination?: PaginationParams) => 
+      api.get('/notifications', { params: { ...filters, ...pagination } }),
+    
+    // PUT /notifications/:id/read
+    markAsRead: (id: string) => 
+      api.put(`/notifications/${id}/read`),
+    
+    // PUT /notifications/read-all
+    markAllAsRead: () => 
+      api.put('/notifications/read-all'),
+    
+    // DELETE /notifications/:id
+    deleteNotification: (id: string) => 
+      api.delete(`/notifications/${id}`),
+    
+    // POST /notifications (Admin only)
+    sendNotification: (notificationData: SendNotificationData) => 
+      api.post('/notifications', notificationData),
+  };
+  ```
+
+- [x] **Reports Service** (`services/reportsService.ts`)
+  ```typescript
+  export const reportsService = {
+    // GET /reports/dashboard?role=&dateRange=
+    getDashboardData: (role: UserRole, dateRange?: DateRange) => 
+      api.get('/reports/dashboard', { params: { role, ...dateRange } }),
+    
+    // GET /reports/revenue?startDate=&endDate=&groupBy=
+    getRevenueReport: (filters: RevenueReportFilters) => 
+      api.get('/reports/revenue', { params: filters }),
+    
+    // GET /reports/products?startDate=&endDate=&sortBy=
+    getProductReport: (filters: ProductReportFilters) => 
+      api.get('/reports/products', { params: filters }),
+    
+    // GET /reports/customers?startDate=&endDate=&sortBy=
+    getCustomerReport: (filters: CustomerReportFilters) => 
+      api.get('/reports/customers', { params: filters }),
+    
+    // POST /reports/export
+    exportReport: (reportData: ExportReportData) => 
+      api.post('/reports/export', reportData, { responseType: 'blob' }),
+  };
+  ```
 
 ---
 
-## Phase 4: Product Management System (Week 4)
+## Phase 4: Authentication & Routing (Week 2-3)
 
-### 4.1 Product Display Components
-- [ ] **Product Card Component**
-  - [ ] Product image with lazy loading
-  - [ ] Product name and description
-  - [ ] Pricing display
-  - [ ] Availability indicator
+### 4.1 Authentication Context
+- [ ] **Auth Context Setup** (`context/AuthContext.tsx`)
+  ```typescript
+  interface AuthContextType {
+    user: User | null;
+    loading: boolean;
+    login: (email: string, password: string) => Promise<void>;
+    register: (userData: RegisterData) => Promise<void>;
+    logout: () => void;
+    updateProfile: (profileData: UpdateProfileData) => Promise<void>;
+    isAuthenticated: boolean;
+    hasRole: (role: UserRole) => boolean;
+  }
+  ```
+- [ ] Implement login logic with token storage
+- [ ] Implement logout with cleanup
+- [ ] Auto-login on app load if token exists
+- [ ] Token refresh mechanism
+
+### 4.2 Route Protection
+- [ ] **Protected Route Component** (`components/common/ProtectedRoute.tsx`)
+  - [ ] Check authentication status
+  - [ ] Role-based access control
+  - [ ] Redirect to login if unauthorized
+  - [ ] Loading state during auth check
+
+- [ ] **Role-based Route Guards**
+  - [ ] CustomerRoute component
+  - [ ] StaffRoute component  
+  - [ ] AdminRoute component
+
+### 4.3 Authentication Pages
+- [ ] **Login Page** (`pages/auth/LoginPage.tsx`)
+  - [ ] Email/password form with validation
+  - [ ] Remember me checkbox
+  - [ ] Forgot password link
+  - [ ] Loading state during login
+  - [ ] Error handling and display
+  - [ ] Social login placeholders (future)
+
+- [ ] **Register Page** (`pages/auth/RegisterPage.tsx`)
+  - [ ] Multi-step registration form
+  - [ ] Email, password, confirm password
+  - [ ] First name, last name, phone
+  - [ ] Role selection (Customer/Staff - Admin created by admin)
+  - [ ] Terms and conditions acceptance
+  - [ ] Real-time validation
+  - [ ] Success confirmation
+
+- [ ] **Forgot Password Page** (`pages/auth/ForgotPasswordPage.tsx`)
+  - [ ] Email input with validation
+  - [ ] Send reset link functionality
+  - [ ] Success message display
+  - [ ] Back to login link
+
+- [ ] **Reset Password Page** (`pages/auth/ResetPasswordPage.tsx`)
+  - [ ] New password form
+  - [ ] Password confirmation
+  - [ ] Token validation
+  - [ ] Success redirect to login
+
+### 4.4 Routing Setup
+- [ ] **Main Router Configuration** (`App.tsx`)
+  ```typescript
+  <BrowserRouter>
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/products" element={<PublicProductCatalog />} />
+      <Route path="/products/:id" element={<PublicProductDetails />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/contact" element={<ContactPage />} />
+      
+      {/* Auth Routes */}
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+      
+      {/* Customer Routes */}
+      <Route path="/customer/*" element={
+        <CustomerRoute>
+          <CustomerRoutes />
+        </CustomerRoute>
+      } />
+      
+      {/* Staff Routes */}
+      <Route path="/staff/*" element={
+        <StaffRoute>
+          <StaffRoutes />
+        </StaffRoute>
+      } />
+      
+      {/* Admin Routes */}
+      <Route path="/admin/*" element={
+        <AdminRoute>
+          <AdminRoutes />
+        </AdminRoute>
+      } />
+      
+      {/* 404 Page */}
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  </BrowserRouter>
+  ```
+
+---
+
+## Phase 5: Customer Portal Development (Week 3-4)
+
+### 5.1 Customer Dashboard
+- [ ] **Customer Dashboard** (`pages/customer/DashboardPage.tsx`)
+  - [ ] Welcome section with user name
+  - [ ] Quick stats cards (active rentals, pending quotations, total spent)
+  - [ ] Recent activities timeline
   - [ ] Quick action buttons
-  - [ ] Wishlist functionality
+  - [ ] Upcoming rental reminders
+  - [ ] Notifications panel
 
-- [ ] **Product Grid/List Views**
-  - [ ] Responsive grid layout
-  - [ ] List view with detailed info
-  - [ ] View toggle functionality
-  - [ ] Infinite scroll or pagination
+### 5.2 Product Browsing
+- [ ] **Product Catalog** (`pages/customer/ProductCatalogPage.tsx`)
+  - [ ] Product grid/list view toggle
+  - [ ] Search functionality with debouncing
+  - [ ] Category filters sidebar
+  - [ ] Price range filter
+  - [ ] Availability date filter
+  - [ ] Sort options (price, name, popularity)
+  - [ ] Pagination or infinite scroll
   - [ ] Loading skeletons
 
-### 4.2 Product Catalog Features
-- [ ] **Search and Filter System**
-  - [ ] Global search functionality
-  - [ ] Category-based filtering
-  - [ ] Price range filtering
-  - [ ] Availability date filtering
-  - [ ] Advanced filter combinations
-  - [ ] Filter state management
-
-- [ ] **Product Details Page**
+- [ ] **Product Details** (`pages/customer/ProductDetailsPage.tsx`)
   - [ ] Image gallery with zoom
-  - [ ] Detailed specifications
-  - [ ] Rental configuration options
+  - [ ] Product information tabs
+  - [ ] Rental configuration section
+  - [ ] Date picker for rental period
+  - [ ] Quantity selector
+  - [ ] Price calculator
   - [ ] Availability calendar
+  - [ ] Request quotation button
   - [ ] Related products section
-  - [ ] Customer reviews (future)
 
-### 4.3 Admin Product Management
-- [ ] **Product Management Dashboard**
-  - [ ] Product list with admin actions
-  - [ ] Bulk operations (delete, update)
-  - [ ] Product status management
-  - [ ] Inventory tracking display
+### 5.3 Quotation Management
+- [ ] **Quotation Request** (`pages/customer/QuotationRequestPage.tsx`)
+  - [ ] Product selection summary
+  - [ ] Rental dates confirmation
+  - [ ] Special requirements textarea
+  - [ ] Contact information form
+  - [ ] Terms acceptance checkbox
+  - [ ] Submit quotation request
 
-- [ ] **Product Editor**
-  - [ ] Add new product form
-  - [ ] Edit existing product
-  - [ ] Image upload and management
-  - [ ] Pricing configuration
-  - [ ] Inventory management
-  - [ ] Product categorization
+- [ ] **My Quotations** (`pages/customer/QuotationsPage.tsx`)
+  - [ ] Quotations list with status
+  - [ ] Filter by status (pending, approved, rejected)
+  - [ ] Search quotations
+  - [ ] Quotation detail modal/page
+  - [ ] Accept/reject actions
+  - [ ] Download quotation PDF
 
-### 4.4 Inventory Management
-- [ ] **Availability System**
-  - [ ] Real-time availability checking
-  - [ ] Calendar-based availability display
-  - [ ] Conflict detection and prevention
-  - [ ] Reservation management
-
----
-
-## Phase 5: Quotation & Rental System (Week 5-6)
-
-### 5.1 Quotation Management
-- [ ] **Quotation Request Form**
-  - [ ] Product selection
-  - [ ] Date range picker
-  - [ ] Quantity selection
-  - [ ] Special requirements input
-  - [ ] Contact information
-  - [ ] Form validation and submission
-
-- [ ] **Quotation Display**
-  - [ ] Quotation details view
+- [ ] **Quotation Details** (`pages/customer/QuotationDetailsPage.tsx`)
+  - [ ] Complete quotation information
+  - [ ] Product details
   - [ ] Pricing breakdown
   - [ ] Terms and conditions
-  - [ ] Accept/reject actions
+  - [ ] Accept/reject buttons
+  - [ ] Modification request option
+
+### 5.4 Rental Management
+- [ ] **My Rentals** (`pages/customer/RentalsPage.tsx`)
+  - [ ] Active rentals list
+  - [ ] Past rentals history
+  - [ ] Status filtering
+  - [ ] Search functionality
+  - [ ] Rental detail access
+
+- [ ] **Rental Details** (`pages/customer/RentalDetailsPage.tsx`)
+  - [ ] Rental information display
+  - [ ] Product details
+  - [ ] Pickup/return schedule
+  - [ ] Payment status
+  - [ ] Contact delivery team
+  - [ ] Return preparation checklist
+
+### 5.5 Payment & Invoicing
+- [ ] **Payment Page** (`pages/customer/PaymentPage.tsx`)
+  - [ ] Payment method selection
+  - [ ] Credit card form with Stripe
+  - [ ] PayPal integration
+  - [ ] Payment summary
+  - [ ] Security indicators
+  - [ ] Payment processing states
+
+- [ ] **Invoice History** (`pages/customer/InvoicesPage.tsx`)
+  - [ ] Invoice list with status
+  - [ ] Search and filter invoices
+  - [ ] Download invoice PDFs
+  - [ ] Payment history
+  - [ ] Outstanding balance display
+
+### 5.6 Profile & Settings
+- [ ] **Profile Settings** (`pages/customer/ProfilePage.tsx`)
+  - [ ] Personal information form
+  - [ ] Contact details
+  - [ ] Address management
+  - [ ] Password change
+  - [ ] Avatar upload
+  - [ ] Account preferences
+
+- [ ] **Notification Settings** (`pages/customer/NotificationSettingsPage.tsx`)
+  - [ ] Email notification preferences
+  - [ ] SMS notification preferences
+  - [ ] Push notification settings
+  - [ ] Frequency settings
+
+---
+
+## Phase 6: Staff Portal Development (Week 4-5)
+
+### 6.1 Staff Dashboard
+- [ ] **Staff Dashboard** (`pages/staff/DashboardPage.tsx`)
+  - [ ] Today's task overview
+  - [ ] Pickup tasks summary
+  - [ ] Return tasks summary
+  - [ ] Performance metrics
+  - [ ] Quick action buttons
+  - [ ] Route optimization map (future)
+
+### 6.2 Pickup Management
+- [ ] **Pickup List** (`pages/staff/PickupsPage.tsx`)
+  - [ ] Today's pickups list
+  - [ ] Filter by status
+  - [ ] Search by customer
+  - [ ] Sort by time/location
+  - [ ] Route optimization view
+  - [ ] Pickup detail access
+
+- [ ] **Pickup Details** (`pages/staff/PickupDetailsPage.tsx`)
+  - [ ] Customer information
+  - [ ] Product details
+  - [ ] Pickup address and time
+  - [ ] Special instructions
+  - [ ] Contact customer button
+  - [ ] Navigation integration
+  - [ ] Pickup completion form
+
+- [ ] **Complete Pickup** (`pages/staff/CompletePickupPage.tsx`)
+  - [ ] Item checklist
+  - [ ] Photo upload
+  - [ ] Customer signature
+  - [ ] Notes and comments
+  - [ ] Completion confirmation
+  - [ ] Next task navigation
+
+### 6.3 Return Management
+- [ ] **Return List** (`pages/staff/ReturnsPage.tsx`)
+  - [ ] Scheduled returns list
+  - [ ] Overdue returns highlighting
+  - [ ] Filter and search options
+  - [ ] Sort by priority
+  - [ ] Return detail access
+
+- [ ] **Return Details** (`pages/staff/ReturnDetailsPage.tsx`)
+  - [ ] Customer and rental information
+  - [ ] Product details
+  - [ ] Return address and time
+  - [ ] Original condition notes
+  - [ ] Contact customer button
+  - [ ] Return processing form
+
+- [ ] **Complete Return** (`pages/staff/CompleteReturnPage.tsx`)
+  - [ ] Item condition assessment
+  - [ ] Damage reporting
+  - [ ] Photo upload
+  - [ ] Late fee calculation
+  - [ ] Customer signature
+  - [ ] Completion confirmation
+
+### 6.4 Task History & Performance
+- [ ] **Task History** (`pages/staff/TaskHistoryPage.tsx`)
+  - [ ] Completed tasks list
+  - [ ] Filter by date range
+  - [ ] Performance metrics
+  - [ ] Customer feedback
+  - [ ] Issue reports
+
+### 6.5 Staff Profile
+- [ ] **Staff Profile** (`pages/staff/ProfilePage.tsx`)
+  - [ ] Personal information
+  - [ ] Contact details
+  - [ ] Performance statistics
+  - [ ] Settings and preferences
+
+---
+
+## Phase 7: Admin Portal Development (Week 5-6)
+
+### 7.1 Admin Dashboard
+- [ ] **Admin Dashboard** (`pages/admin/DashboardPage.tsx`)
+  - [ ] Key performance indicators
+  - [ ] Revenue charts
+  - [ ] Active rentals overview
+  - [ ] Pending quotations
+  - [ ] Staff performance
+  - [ ] System health indicators
+  - [ ] Recent activities feed
+
+### 7.2 Product Management
+- [ ] **Product List** (`pages/admin/ProductsPage.tsx`)
+  - [ ] Products table with actions
+  - [ ] Search and filter options
+  - [ ] Bulk actions
+  - [ ] Add product button
+  - [ ] Product status management
+  - [ ] Inventory overview
+
+- [ ] **Product Editor** (`pages/admin/ProductEditorPage.tsx`)
+  - [ ] Basic information form
+  - [ ] Image upload and management
+  - [ ] Pricing configuration
+  - [ ] Rental terms setup
+  - [ ] Availability settings
+  - [ ] Category assignment
+  - [ ] Specifications editor
+
+- [ ] **Category Management** (`pages/admin/CategoriesPage.tsx`)
+  - [ ] Category list
+  - [ ] Add/edit categories
+  - [ ] Category hierarchy
+  - [ ] Product count per category
+
+### 7.3 Quotation Management
+- [ ] **Quotation List** (`pages/admin/QuotationsPage.tsx`)
+  - [ ] Pending quotations queue
+  - [ ] All quotations with filters
+  - [ ] Search and sort options
+  - [ ] Bulk approval actions
+  - [ ] Quotation detail access
+
+- [ ] **Quotation Review** (`pages/admin/QuotationReviewPage.tsx`)
+  - [ ] Customer information
+  - [ ] Product details
+  - [ ] Pricing breakdown
+  - [ ] Approval/rejection form
+  - [ ] Notes and modifications
+  - [ ] Convert to rental
+
+### 7.4 Rental Management
+- [ ] **Rental List** (`pages/admin/RentalsPage.tsx`)
+  - [ ] All rentals overview
+  - [ ] Status filtering
+  - [ ] Search functionality
+  - [ ] Late rentals highlighting
+  - [ ] Rental detail access
+
+- [ ] **Rental Details** (`pages/admin/RentalDetailsPage.tsx`)
+  - [ ] Complete rental information
+  - [ ] Customer details
+  - [ ] Product information
+  - [ ] Payment status
+  - [ ] Pickup/return tracking
+  - [ ] Modification options
+
+### 7.5 User Management
+- [ ] **User List** (`pages/admin/UsersPage.tsx`)
+  - [ ] All users table
+  - [ ] Role filtering
+  - [ ] Search users
+  - [ ] User status management
+  - [ ] Add user button
+
+- [ ] **User Editor** (`pages/admin/UserEditorPage.tsx`)
+  - [ ] User information form
+  - [ ] Role assignment
+  - [ ] Permission settings
+  - [ ] Account status
+  - [ ] Password reset option
+
+### 7.6 Operations Management
+- [ ] **Pickup Management** (`pages/admin/PickupManagementPage.tsx`)
+  - [ ] All scheduled pickups
+  - [ ] Staff assignment
+  - [ ] Route optimization
   - [ ] Status tracking
 
-### 5.2 Customer Quotation Management
-- [ ] **My Quotations Page**
-  - [ ] List of all quotations
-  - [ ] Status filtering
-  - [ ] Search and sort functionality
-  - [ ] Quotation detail modal/page
-  - [ ] Action buttons (accept, reject, modify)
+- [ ] **Return Management** (`pages/admin/ReturnManagementPage.tsx`)
+  - [ ] Scheduled returns
+  - [ ] Overdue tracking
+  - [ ] Staff assignment
+  - [ ] Late fee management
 
-### 5.3 Admin Quotation Processing
-- [ ] **Quotation Management Dashboard**
-  - [ ] Pending quotations list
-  - [ ] Quotation review interface
-  - [ ] Approval/rejection workflow
-  - [ ] Bulk actions
-  - [ ] Analytics and reporting
-
-- [ ] **Quotation Editor**
-  - [ ] Modify quotation details
-  - [ ] Adjust pricing
-  - [ ] Add special terms
-  - [ ] Internal notes system
-  - [ ] Communication with customer
-
-### 5.4 Rental Conversion
-- [ ] **Rental Creation**
-  - [ ] Convert quotation to rental
-  - [ ] Generate rental contract
-  - [ ] Assign delivery staff
-  - [ ] Schedule pickup/return
-  - [ ] Send confirmation to customer
-
----
-
-## Phase 6: Payment Integration (Week 6-7)
-
-### 6.1 Payment Gateway Setup
-- [ ] **Payment Provider Integration**
-  - [ ] Stripe integration setup
-  - [ ] PayPal integration
-  - [ ] Razorpay integration (if needed)
-  - [ ] Environment configuration
-  - [ ] Test mode implementation
-
-### 6.2 Payment Flow
-- [ ] **Payment Page**
-  - [ ] Payment method selection
-  - [ ] Credit card form with validation
-  - [ ] PayPal button integration
-  - [ ] Security badges and SSL indicators
-  - [ ] Payment processing loader
-
-- [ ] **Payment Confirmation**
-  - [ ] Success page with transaction details
-  - [ ] Failure page with retry options
-  - [ ] Email confirmation trigger
-  - [ ] Receipt generation and download
-
-### 6.3 Invoice Management
-- [ ] **Invoice Display**
-  - [ ] Invoice list for customers
-  - [ ] Detailed invoice view
-  - [ ] Download invoice as PDF
-  - [ ] Payment history tracking
-
-- [ ] **Admin Invoice Management**
+### 7.7 Financial Management
+- [ ] **Invoice Management** (`pages/admin/InvoicesPage.tsx`)
+  - [ ] All invoices list
+  - [ ] Payment status tracking
   - [ ] Generate invoices
-  - [ ] Invoice templates
-  - [ ] Payment tracking
-  - [ ] Late fee automation
+  - [ ] Late fee application
+
+- [ ] **Payment Tracking** (`pages/admin/PaymentsPage.tsx`)
+  - [ ] Payment history
+  - [ ] Failed payments
+  - [ ] Refund management
   - [ ] Financial reporting
 
----
-
-## Phase 7: Operations Management (Week 7-8)
-
-### 7.1 Staff Portal
-- [ ] **Staff Dashboard**
-  - [ ] Daily task overview
-  - [ ] Performance metrics
-  - [ ] Quick actions
-  - [ ] Notification center
-
-- [ ] **Pickup Management**
-  - [ ] Pickup task list
-  - [ ] Route optimization display
-  - [ ] Customer contact information
-  - [ ] Pickup completion form
-  - [ ] Photo upload for confirmation
-
-- [ ] **Return Management**
-  - [ ] Return task list
-  - [ ] Item condition assessment
-  - [ ] Late fee calculation
-  - [ ] Return completion workflow
-  - [ ] Inventory update triggers
-
-### 7.2 Admin Operations
-- [ ] **Task Assignment**
-  - [ ] Assign pickups to staff
-  - [ ] Schedule optimization
-  - [ ] Staff workload balancing
-  - [ ] Emergency reassignment
-
-- [ ] **Tracking and Monitoring**
-  - [ ] Real-time task status
-  - [ ] GPS tracking (future)
-  - [ ] Performance analytics
-  - [ ] Issue reporting system
-
-### 7.3 Notification System
-- [ ] **Customer Notifications**
-  - [ ] Booking confirmations
-  - [ ] Pickup reminders
-  - [ ] Return reminders
-  - [ ] Payment notifications
-  - [ ] SMS/Email integration
-
-- [ ] **Staff Notifications**
-  - [ ] Task assignments
-  - [ ] Schedule changes
-  - [ ] Emergency alerts
-  - [ ] Performance updates
-
----
-
-## Phase 8: Analytics & Reporting (Week 8-9)
-
-### 8.1 Dashboard Analytics
-- [ ] **Customer Dashboard**
-  - [ ] Rental history charts
-  - [ ] Spending analytics
-  - [ ] Usage patterns
-  - [ ] Loyalty metrics
-
-- [ ] **Staff Dashboard**
-  - [ ] Performance metrics
-  - [ ] Task completion rates
-  - [ ] Customer satisfaction scores
-  - [ ] Efficiency analytics
-
-- [ ] **Admin Dashboard**
-  - [ ] Business KPIs
-  - [ ] Revenue analytics
+### 7.8 Reports & Analytics
+- [ ] **Reports Dashboard** (`pages/admin/ReportsPage.tsx`)
+  - [ ] Revenue reports
   - [ ] Product performance
   - [ ] Customer analytics
-  - [ ] Operational metrics
+  - [ ] Staff performance
+  - [ ] Export functionality
 
-### 8.2 Reporting System
-- [ ] **Report Generation**
-  - [ ] Financial reports
-  - [ ] Inventory reports
-  - [ ] Customer reports
-  - [ ] Staff performance reports
-  - [ ] Custom report builder
-
-- [ ] **Export Functionality**
-  - [ ] PDF export
-  - [ ] Excel export
-  - [ ] CSV export
-  - [ ] Email report delivery
-  - [ ] Scheduled reports
-
-### 8.3 Data Visualization
-- [ ] **Charts and Graphs**
-  - [ ] Revenue trends
-  - [ ] Popular products
-  - [ ] Customer growth
-  - [ ] Seasonal patterns
-  - [ ] Interactive dashboards
+### 7.9 System Settings
+- [ ] **Settings Page** (`pages/admin/SettingsPage.tsx`)
+  - [ ] Application settings
+  - [ ] Pricing rules
+  - [ ] Notification templates
+  - [ ] System configuration
 
 ---
 
-## Phase 9: Advanced Features (Week 9-10)
+## Phase 8: Public Pages Development (Week 6)
 
-### 9.1 Advanced Search
-- [ ] **Enhanced Search**
+### 8.1 Landing Page
+- [ ] **Landing Page** (`pages/public/LandingPage.tsx`)
+  - [ ] Hero section with CTA
+  - [ ] Featured products
+  - [ ] How it works section
+  - [ ] Customer testimonials
+  - [ ] Contact information
+
+### 8.2 Public Product Pages
+- [ ] **Public Product Catalog** (`pages/public/ProductCatalogPage.tsx`)
+  - [ ] Guest browsing experience
+  - [ ] Product information display
+  - [ ] Registration prompts
+  - [ ] Login to see pricing
+
+- [ ] **Public Product Details** (`pages/public/ProductDetailsPage.tsx`)
+  - [ ] Product information
+  - [ ] Image gallery
+  - [ ] Login prompt for quotation
+
+### 8.3 Information Pages
+- [ ] **About Page** (`pages/public/AboutPage.tsx`)
+- [ ] **Contact Page** (`pages/public/ContactPage.tsx`)
+- [ ] **Terms & Conditions** (`pages/public/TermsPage.tsx`)
+- [ ] **Privacy Policy** (`pages/public/PrivacyPage.tsx`)
+- [ ] **404 Not Found** (`pages/public/NotFoundPage.tsx`)
+
+---
+
+## Phase 9: Advanced Features & Polish (Week 7)
+
+### 9.1 Search & Filter Enhancements
+- [ ] **Global Search Component**
   - [ ] Auto-complete suggestions
-  - [ ] Search result highlighting
+  - [ ] Search history
   - [ ] Recent searches
-  - [ ] Saved searches
   - [ ] Search analytics
 
-### 9.2 Pricing Engine
-- [ ] **Dynamic Pricing**
-  - [ ] Time-based pricing
-  - [ ] Demand-based pricing
-  - [ ] Seasonal adjustments
-  - [ ] Bulk discounts
-  - [ ] Customer-specific pricing
+### 9.2 Notification System
+- [ ] **Toast Notification System**
+  - [ ] Success, error, warning, info types
+  - [ ] Auto-dismiss timers
+  - [ ] Action buttons
+  - [ ] Position configuration
 
-### 9.3 Automation Features
-- [ ] **Late Fee Automation**
-  - [ ] Automatic calculation
-  - [ ] Grace period configuration
-  - [ ] Progressive penalty system
-  - [ ] Exception handling
+- [ ] **In-App Notifications**
+  - [ ] Notification bell component
+  - [ ] Notification list dropdown
+  - [ ] Mark as read functionality
+  - [ ] Real-time updates (WebSocket ready)
 
-- [ ] **Reminder System**
-  - [ ] Automated email reminders
-  - [ ] SMS notifications
-  - [ ] Custom reminder schedules
-  - [ ] Escalation workflows
+### 9.3 Calendar Integration
+- [ ] **Availability Calendar**
+  - [ ] Date range selection
+  - [ ] Blocked dates display
+  - [ ] Multi-month view
+  - [ ] Custom date formatting
 
-### 9.4 Integration Features
-- [ ] **Calendar Integration**
-  - [ ] Google Calendar sync
-  - [ ] Outlook integration
-  - [ ] iCal export
-  - [ ] Booking calendar embeds
+### 9.4 File Upload System
+- [ ] **Image Upload Component**
+  - [ ] Drag and drop
+  - [ ] Preview functionality
+  - [ ] Progress indicators
+  - [ ] Multiple file support
+  - [ ] File type validation
 
----
-
-## Phase 10: Testing & Optimization (Week 10-11)
-
-### 10.1 Testing Implementation
-- [ ] **Unit Testing**
-  - [ ] Component testing with Jest
-  - [ ] Hook testing
-  - [ ] Utility function testing
-  - [ ] Service layer testing
-  - [ ] Test coverage reports
-
-- [ ] **Integration Testing**
-  - [ ] API integration tests
-  - [ ] User flow testing
-  - [ ] Cross-browser testing
-  - [ ] Mobile device testing
-  - [ ] Accessibility testing
-
-### 10.2 Performance Optimization
-- [ ] **Frontend Optimization**
-  - [ ] Code splitting and lazy loading
-  - [ ] Image optimization
-  - [ ] Bundle size optimization
-  - [ ] Caching strategies
-  - [ ] Performance monitoring
-
-- [ ] **User Experience**
-  - [ ] Loading state optimization
-  - [ ] Error handling improvement
-  - [ ] Accessibility enhancements
-  - [ ] Mobile optimization
-  - [ ] SEO optimization
-
-### 10.3 Security Implementation
-- [ ] **Security Measures**
-  - [ ] Input validation and sanitization
-  - [ ] XSS protection
-  - [ ] CSRF protection
-  - [ ] Authentication security
-  - [ ] Data encryption
+### 9.5 Data Tables
+- [ ] **Advanced Table Component**
+  - [ ] Sorting functionality
+  - [ ] Column filtering
+  - [ ] Pagination
+  - [ ] Row selection
+  - [ ] Export options
 
 ---
 
-## Phase 11: Deployment & Launch (Week 11-12)
+## Phase 10: Testing & Optimization (Week 8)
 
-### 11.1 Production Build
-- [ ] **Build Optimization**
-  - [ ] Production build configuration
-  - [ ] Environment variable setup
-  - [ ] Asset optimization
+### 10.1 Component Testing
+- [ ] Set up testing environment
+- [ ] Write unit tests for utility functions
+- [ ] Test common components
+- [ ] Test form validations
+- [ ] Test API service functions
+
+### 10.2 Integration Testing
+- [ ] Test authentication flows
+- [ ] Test customer user journeys
+- [ ] Test staff workflows
+- [ ] Test admin operations
+
+### 10.3 Performance Optimization
+- [ ] **Code Splitting**
+  - [ ] Route-based code splitting
+  - [ ] Component lazy loading
   - [ ] Bundle analysis
-  - [ ] Performance testing
 
-### 11.2 Deployment Setup
-- [ ] **Hosting Configuration**
-  - [ ] Choose hosting platform (Vercel/Netlify/AWS)
-  - [ ] Domain configuration
-  - [ ] SSL certificate setup
-  - [ ] CDN configuration
-  - [ ] Monitoring setup
+- [ ] **Image Optimization**
+  - [ ] Lazy loading implementation
+  - [ ] Image compression
+  - [ ] WebP format support
+  - [ ] Responsive images
 
-### 11.3 Launch Preparation
-- [ ] **Pre-launch Testing**
-  - [ ] End-to-end testing
-  - [ ] User acceptance testing
-  - [ ] Performance testing
-  - [ ] Security testing
-  - [ ] Cross-platform testing
+### 10.4 Responsive Design Testing
+- [ ] Mobile device testing
+- [ ] Tablet optimization
+- [ ] Desktop enhancement
+- [ ] Cross-browser testing
 
-- [ ] **Documentation**
-  - [ ] User documentation
-  - [ ] API documentation
-  - [ ] Deployment guide
-  - [ ] Troubleshooting guide
-  - [ ] Training materials
-
-### 11.4 Go-Live Activities
-- [ ] **Launch Checklist**
-  - [ ] Final production testing
-  - [ ] Backup procedures
-  - [ ] Monitoring setup
-  - [ ] Support team preparation
-  - [ ] Launch announcement
+### 10.5 Accessibility Implementation
+- [ ] ARIA labels and roles
+- [ ] Keyboard navigation
+- [ ] Screen reader support
+- [ ] High contrast themes
+- [ ] Focus management
 
 ---
 
-## Phase 12: Post-Launch & Maintenance (Ongoing)
+## Development Best Practices
 
-### 12.1 Monitoring & Support
-- [ ] **System Monitoring**
-  - [ ] Error tracking setup
-  - [ ] Performance monitoring
-  - [ ] User analytics
-  - [ ] Uptime monitoring
-  - [ ] Security monitoring
+### Code Quality
+- [ ] ESLint configuration with strict rules
+- [ ] Prettier for code formatting
+- [ ] TypeScript strict mode
+- [ ] Consistent naming conventions
+- [ ] Component documentation
 
-### 12.2 User Feedback & Iteration
-- [ ] **Feedback Collection**
-  - [ ] User feedback system
-  - [ ] Analytics review
-  - [ ] Bug reports handling
-  - [ ] Feature requests tracking
-  - [ ] Continuous improvement
+### State Management
+- [ ] Use React Context for global state
+- [ ] Local state for component-specific data
+- [ ] Custom hooks for reusable logic
+- [ ] Proper cleanup in useEffect
 
-### 12.3 Maintenance Tasks
-- [ ] **Regular Maintenance**
-  - [ ] Dependency updates
-  - [ ] Security patches
-  - [ ] Performance optimization
-  - [ ] Feature enhancements
-  - [ ] Bug fixes
+### Error Handling
+- [ ] Error boundaries for components
+- [ ] API error handling
+- [ ] User-friendly error messages
+- [ ] Fallback UI components
+- [ ] Error logging system
 
----
-
-## Development Guidelines
-
-### Daily Development Practices
-- [ ] Commit code daily with meaningful messages
-- [ ] Write tests for new features
-- [ ] Update documentation as needed
-- [ ] Review and refactor code regularly
-- [ ] Test across different devices and browsers
-
-### Weekly Review Process
-- [ ] Review completed tasks
-- [ ] Update project timeline
-- [ ] Identify blockers and solutions
-- [ ] Plan next week's priorities
-- [ ] Update stakeholders on progress
-
-### Quality Assurance Checkpoints
-- [ ] Code review before merging
-- [ ] Testing before feature completion
-- [ ] Performance check after major changes
-- [ ] Accessibility audit for new components
-- [ ] Security review for sensitive features
+### Performance Best Practices
+- [ ] Memoization with useMemo/useCallback
+- [ ] Virtual scrolling for large lists
+- [ ] Debounced search inputs
+- [ ] Optimistic UI updates
+- [ ] Efficient re-renders
 
 ---
 
-## Risk Mitigation
+## API Endpoints Summary
 
-### Technical Risks
-- [ ] **API Integration Issues**
-  - Mitigation: Mock API data for frontend development
-  - Fallback: Implement offline mode capabilities
+### Authentication Endpoints
+```
+POST   /auth/login
+POST   /auth/register
+POST   /auth/forgot-password
+POST   /auth/reset-password
+GET    /auth/me
+PUT    /auth/profile
+POST   /auth/logout
+```
 
-- [ ] **Performance Bottlenecks**
-  - Mitigation: Regular performance testing
-  - Fallback: Progressive loading and optimization
+### Product Endpoints
+```
+GET    /products
+GET    /products/:id
+GET    /products/:id/availability
+POST   /products
+PUT    /products/:id
+DELETE /products/:id
+GET    /products/categories
+```
 
-- [ ] **Browser Compatibility**
-  - Mitigation: Test on multiple browsers regularly
-  - Fallback: Graceful degradation strategies
+### Quotation Endpoints
+```
+GET    /quotations
+GET    /quotations/:id
+POST   /quotations
+PUT    /quotations/:id/status
+PUT    /quotations/:id
+DELETE /quotations/:id
+```
 
-### Timeline Risks
-- [ ] **Scope Creep**
-  - Mitigation: Strict requirement documentation
-  - Fallback: MVP approach with post-launch features
+### Rental Endpoints
+```
+GET    /rentals
+GET    /rentals/:id
+POST   /rentals
+PUT    /rentals/:id/status
+PUT    /rentals/:id
+```
 
-- [ ] **Technical Complexity**
-  - Mitigation: Break down complex features
-  - Fallback: Simplify features for MVP
+### Operations Endpoints
+```
+GET    /pickups
+GET    /pickups/:id
+POST   /pickups
+PUT    /pickups/:id/complete
+GET    /returns
+GET    /returns/:id
+POST   /returns
+PUT    /returns/:id/complete
+```
+
+### Payment Endpoints
+```
+GET    /payments
+POST   /payments/intent
+POST   /payments/confirm
+GET    /invoices
+GET    /invoices/:id
+GET    /invoices/:id/download
+```
+
+### User Management Endpoints
+```
+GET    /users
+GET    /users/:id
+POST   /users
+PUT    /users/:id
+DELETE /users/:id
+PUT    /users/:id/status
+```
+
+### Notification Endpoints
+```
+GET    /notifications
+PUT    /notifications/:id/read
+PUT    /notifications/read-all
+DELETE /notifications/:id
+POST   /notifications
+```
+
+### Reports Endpoints
+```
+GET    /reports/dashboard
+GET    /reports/revenue
+GET    /reports/products
+GET    /reports/customers
+POST   /reports/export
+```
 
 ---
 
-## Success Metrics
+## Timeline Summary
 
-### Development Metrics
-- [ ] Code coverage > 80%
-- [ ] Performance score > 90 (Lighthouse)
-- [ ] Accessibility score > 95 (WCAG AA)
-- [ ] Zero critical security vulnerabilities
-- [ ] Cross-browser compatibility 95%+
+**Week 1:** Project setup, core components, design system  
+**Week 2:** Type definitions, API services, authentication  
+**Week 3:** Customer portal foundation, product browsing  
+**Week 4:** Customer quotations/rentals, staff portal  
+**Week 5:** Staff operations, admin portal foundation  
+**Week 6:** Admin management features, public pages  
+**Week 7:** Advanced features, notifications, polish  
+**Week 8:** Testing, optimization, final touches  
 
-### Business Metrics
-- [ ] User registration conversion > 15%
-- [ ] Quotation to rental conversion > 25%
-- [ ] Customer satisfaction score > 4.5/5
-- [ ] Staff efficiency improvement > 20%
-- [ ] System uptime > 99.5%
-
----
-
-**Note:** This TODO list is comprehensive and should be adapted based on specific requirements, team size, and timeline constraints. Each phase can be adjusted based on priorities and available resources.
+This comprehensive frontend-focused TODO list provides a clear roadmap for building the complete Rental Management application with all three user perspectives (Customer, Staff, Admin) and includes all necessary API endpoints for backend integration.
