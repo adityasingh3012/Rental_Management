@@ -12,7 +12,6 @@ import {
 } from './pages/auth';
 import DashboardPage from './pages/DashboardPage';
 import Phase2Demo from './pages/Phase2Demo';
-import ThemeShowcase from './pages/ThemeShowcase';
 import './App.css';
 
 function App() {
@@ -46,7 +45,7 @@ function App() {
                 } 
               />
               
-              {/* Demo Routes */}
+              {/* Demo Route (Temporary) */}
               <Route 
                 path="/phase2" 
                 element={
@@ -54,11 +53,6 @@ function App() {
                     <Phase2Demo />
                   </ProtectedRoute>
                 } 
-              />
-              
-              <Route 
-                path="/theme-showcase" 
-                element={<ThemeShowcase />}
               />
               
               {/* Default redirects */}

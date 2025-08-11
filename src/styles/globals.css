@@ -1,0 +1,305 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Google Fonts Import - Enhanced Typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* CSS Custom Properties for Theme - Modern Premium Palette */
+:root {
+  /* Background Colors */
+  --color-background: 255 255 255;
+  --color-foreground: 15 23 42;
+  --color-card: 255 255 255;
+  --color-card-foreground: 15 23 42;
+  --color-popover: 255 255 255;
+  --color-popover-foreground: 15 23 42;
+  
+  /* Brand Colors */
+  --color-primary: 59 130 246;
+  --color-primary-foreground: 255 255 255;
+  --color-secondary: 241 245 249;
+  --color-secondary-foreground: 15 23 42;
+  
+  /* Utility Colors */
+  --color-muted: 241 245 249;
+  --color-muted-foreground: 100 116 139;
+  --color-accent: 241 245 249;
+  --color-accent-foreground: 15 23 42;
+  --color-destructive: 239 68 68;
+  --color-destructive-foreground: 255 255 255;
+  
+  /* Border and Input */
+  --color-border: 226 232 240;
+  --color-input: 226 232 240;
+  --color-ring: 59 130 246;
+  
+  /* Semantic Colors */
+  --color-success: 34 197 94;
+  --color-warning: 245 158 11;
+  --color-error: 239 68 68;
+  --color-info: 14 165 233;
+  
+  /* Border Radius */
+  --radius: 0.5rem;
+  
+  /* Shadows */
+  --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.dark {
+  /* Background Colors */
+  --color-background: 2 6 23;
+  --color-foreground: 248 250 252;
+  --color-card: 15 23 42;
+  --color-card-foreground: 248 250 252;
+  --color-popover: 2 6 23;
+  --color-popover-foreground: 248 250 252;
+  
+  /* Brand Colors */
+  --color-primary: 96 165 250;
+  --color-primary-foreground: 15 23 42;
+  --color-secondary: 30 41 59;
+  --color-secondary-foreground: 248 250 252;
+  
+  /* Utility Colors */
+  --color-muted: 30 41 59;
+  --color-muted-foreground: 148 163 184;
+  --color-accent: 30 41 59;
+  --color-accent-foreground: 248 250 252;
+  --color-destructive: 220 38 38;
+  --color-destructive-foreground: 248 250 252;
+  
+  /* Border and Input */
+  --color-border: 51 65 85;
+  --color-input: 30 41 59;
+  --color-ring: 96 165 250;
+  
+  /* Semantic Colors */
+  --color-success: 74 222 128;
+  --color-warning: 251 191 36;
+  --color-error: 248 113 113;
+  --color-info: 56 189 248;
+  
+  /* Enhanced Shadows for Dark Mode */
+  --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Base Styles */
+* {
+  border-color: rgb(var(--color-border));
+}
+
+body {
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font-feature-settings: "rlig" 1, "calt" 1;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enhanced Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(var(--color-secondary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--color-muted-foreground), 0.3);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(var(--color-muted-foreground), 0.5);
+}
+
+/* Smooth Transitions for all elements */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, 
+              box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Focus Styles */
+.focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(var(--color-ring) / 0.2);
+}
+
+/* Custom Utility Classes */
+.glass-effect {
+  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-effect {
+  background-color: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.2);
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, rgb(var(--color-primary)) 0%, rgb(147 51 234) 100%);
+}
+
+.gradient-premium {
+  background: linear-gradient(135deg, 
+    rgb(var(--color-primary)) 0%, 
+    rgb(14 165 233) 50%, 
+    rgb(147 51 234) 100%);
+}
+
+/* Enhanced Card Shadows */
+.card-shadow {
+  box-shadow: var(--shadow-soft);
+}
+
+.card-shadow-lg {
+  box-shadow: var(--shadow-large);
+}
+
+.card-shadow-premium {
+  box-shadow: var(--shadow-premium);
+}
+
+/* Animation Classes */
+.animate-in {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-out {
+  animation: slideDown 0.3s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Loading States */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+  border-radius: 50%;
+  border: 2px solid rgba(var(--color-muted-foreground), 0.3);
+  border-top-color: rgb(var(--color-primary));
+}
+
+/* Interactive Elements */
+.interactive {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.interactive:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+}
+
+.interactive:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Premium Button Styles */
+.btn-premium {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgb(var(--color-primary)), rgb(14 165 233));
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(var(--color-primary), 0.25);
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-premium:hover::before {
+  left: 100%;
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(var(--color-primary), 0.35);
+}
+
+/* Status Indicators */
+.status-success {
+  color: rgb(var(--color-success));
+  background-color: rgba(var(--color-success), 0.1);
+}
+
+.status-warning {
+  color: rgb(var(--color-warning));
+  background-color: rgba(var(--color-warning), 0.1);
+}
+
+.status-error {
+  color: rgb(var(--color-error));
+  background-color: rgba(var(--color-error), 0.1);
+}
+
+.status-info {
+  color: rgb(var(--color-info));
+  background-color: rgba(var(--color-info), 0.1);
+}
+
+/* Text Selection */
+::selection {
+  background-color: rgba(var(--color-primary), 0.2);
+  color: rgb(var(--color-foreground));
+}
+
+/* Print Styles */
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: 0 0 0;
+    --color-ring: 0 0 0;
+  }
+  
+  .dark {
+    --color-border: 255 255 255;
+    --color-ring: 255 255 255;
+  }
+}
